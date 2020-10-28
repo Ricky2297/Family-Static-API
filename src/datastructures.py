@@ -46,13 +46,19 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
-        self._members.append(member)
+        if 'id' in member:
+            self._members.append(member)
+        else:
+            member['id'] = self._generateId()
+            self._members.append(member)
         return None
         
 
     def delete_member(self, id):
         # fill this method and update the return
         for position in range(len(self._members)):
+            print("this is position",position)
+            print("this is member",self._members)
             if self._members[position]['id'] == id:
                 self._members.pop(position)
         return None
@@ -63,9 +69,19 @@ class FamilyStructure:
         for all_members in self._members:
             if all_members['id'] == int(id):
                 return all_members
+        return 'member does not exist'
+    
+    def get_name_member(self, name):
+        # fill this method and update the return
+        for all_members in self._members:
+            if all_members['first_name'] == name:
+                return all_members
             
         
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
-        return self._members
+        if len(self._members) > 0:
+            return self._members
+        else:
+            return "array is empty"
